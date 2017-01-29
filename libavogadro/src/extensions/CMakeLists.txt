@@ -40,6 +40,9 @@ if(${CMAKE_CXX_COMPILER_ID} MATCHES Intel AND UNIX)
   set_target_properties(forcefieldextension PROPERTIES COMPILE_FLAGS "-fvisibility=default")
 endif()
 
+### save current selection as a molecule file
+avogadro_plugin_nogl(newmoleculefromselectionextension newmoleculefromselection.cpp)
+
 ### selection indices
 avogadro_plugin_nogl(selectionindicesextension selectionindices.cpp)
 
