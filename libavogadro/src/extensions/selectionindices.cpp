@@ -35,6 +35,8 @@
 #include <QFile>
 #include <QTextStream>
 
+#include "filenameforoutput.cpp"
+
 using namespace std;
 using namespace OpenBabel;
 
@@ -73,26 +75,7 @@ namespace Avogadro {
   QUndoCommand* SelectionIndicesExtension::performAction(QAction *action, GLWidget *widget)
   {
 
-
-
-    // Fragment copied from InputDialog
-    // Try to set default save path for dialog using the next sequence:
-    //  1) directory of current file (if any);
-    //  2) directory where previous deck was saved;
-    //  3) $HOME
-    QFileInfo defaultFile(m_molecule->fileName());
-    QString defaultPath = defaultFile.canonicalPath();
-    if(m_savePath == "") {
-      if (defaultPath.isEmpty())
-        defaultPath = QDir::homePath();
-    } else {
-      defaultPath = m_savePath;
-    }
-    QString fileType = "text";
-    QString ext = "txt";
-    QString defaultFileName = defaultPath + '/' + defaultFile.baseName() + "." + ext;
-    QString fileName = QFileDialog::getSaveFileName(widget, tr("Save indices of selection"),
-        defaultFileName, fileType + " (*." + ext + ")");
+    QString fileName = outputFilename(m_molecule, widget, QString("text") , QString("txt") , QString("selection-indices") , "Save indices of atoms to" );
 
     QFile file(fileName);
     file.open( QIODevice::WriteOnly | QIODevice::Text );
