@@ -84,7 +84,7 @@ namespace Avogadro {
     QFile file(fileName);
     file.open( QIODevice::WriteOnly | QIODevice::Text );
     QTextStream outStream(&file);
-    outStream << "Bond number," << '\t' << "distance [Angstrom]," << '\t' << "From atom," << '\t' << "To atom"  << endl;
+    outStream << "#Bond number," << '\t' << "distance [Angstrom]," << '\t' << "From atom," << '\t' << "To atom"  << endl;
 
     PrimitiveList selectedPrimitives = widget->selectedPrimitives();
     const QList<Primitive *> AtomsList = selectedPrimitives.subList(Primitive::AtomType);
