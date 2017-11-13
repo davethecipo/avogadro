@@ -22,52 +22,49 @@
 #ifndef SELECTIONINDICES_H
 #define SELECTIONINDICES_H
 
-#include <avogadro/glwidget.h>
 #include <avogadro/extension.h>
+#include <avogadro/glwidget.h>
 
-#include <QObject>
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QUndoCommand>
 
 namespace Avogadro {
 
- class SelectionIndicesExtension : public Extension
-  {
-    Q_OBJECT
-    AVOGADRO_EXTENSION("Selection indices", tr("Selection indices"),
-                       tr("Export atoms indices for current selection"))
+class SelectionIndicesExtension : public Extension {
+  Q_OBJECT
+  AVOGADRO_EXTENSION("Selection indices", tr("Selection indices"),
+                     tr("Export atoms indices for current selection"))
 
-    public:
-      //! Constructor
-      SelectionIndicesExtension(QObject *parent=0);
-      //! Deconstructor
-      virtual ~SelectionIndicesExtension();
+public:
+  //! Constructor
+  SelectionIndicesExtension(QObject *parent = 0);
+  //! Deconstructor
+  virtual ~SelectionIndicesExtension();
 
-      //! Perform Action
-      virtual QList<QAction *> actions() const;
-      virtual QUndoCommand* performAction(QAction *action, GLWidget *widget);
-      virtual QString menuPath(QAction *action) const;
+  //! Perform Action
+  virtual QList<QAction *> actions() const;
+  virtual QUndoCommand *performAction(QAction *action, GLWidget *widget);
+  virtual QString menuPath(QAction *action) const;
 
-      void setMolecule(Molecule *molecule);
+  void setMolecule(Molecule *molecule);
 
-    private:
-      QList<QAction *> m_actions;
-      Molecule *m_molecule;
+private:
+  QList<QAction *> m_actions;
+  Molecule *m_molecule;
 
-      void saveIndices(GLWidget *widget);
+  void saveIndices(GLWidget *widget);
 
-    protected:
-      QString m_savePath;
-  };
+protected:
+  QString m_savePath;
+};
 
-  class SelectionIndicesExtensionFactory : public QObject, public PluginFactory
-  {
-      Q_OBJECT
-      Q_INTERFACES(Avogadro::PluginFactory)
-      AVOGADRO_EXTENSION_FACTORY(SelectionIndicesExtension)
-  };
-
+class SelectionIndicesExtensionFactory : public QObject, public PluginFactory {
+  Q_OBJECT
+  Q_INTERFACES(Avogadro::PluginFactory)
+  AVOGADRO_EXTENSION_FACTORY(SelectionIndicesExtension)
+};
 
 } // end namespace Avogadro
 

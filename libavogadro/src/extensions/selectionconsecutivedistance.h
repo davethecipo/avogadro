@@ -22,52 +22,51 @@
 #ifndef SELECTIONCONSECUTIVEDISTANCE_H
 #define SELECTIONCONSECUTIVEDISTANCE_H
 
-#include <avogadro/glwidget.h>
 #include <avogadro/extension.h>
+#include <avogadro/glwidget.h>
 
-#include <QObject>
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QUndoCommand>
 
 namespace Avogadro {
 
- class SelectionConsecutiveDistanceExtension : public Extension
-  {
-    Q_OBJECT
-    AVOGADRO_EXTENSION("Selection consecutive distance", tr("Selection consecutive distance"),
-                       tr("Export distance between consecutive atoms of the current selection"))
+class SelectionConsecutiveDistanceExtension : public Extension {
+  Q_OBJECT
+  AVOGADRO_EXTENSION(
+      "Selection consecutive distance", tr("Selection consecutive distance"),
+      tr("Export distance between consecutive atoms of the current selection"))
 
-    public:
-      //! Constructor
-      SelectionConsecutiveDistanceExtension(QObject *parent=0);
-      //! Deconstructor
-      virtual ~SelectionConsecutiveDistanceExtension();
+public:
+  //! Constructor
+  SelectionConsecutiveDistanceExtension(QObject *parent = 0);
+  //! Deconstructor
+  virtual ~SelectionConsecutiveDistanceExtension();
 
-      //! Perform Action
-      virtual QList<QAction *> actions() const;
-      virtual QUndoCommand* performAction(QAction *action, GLWidget *widget);
-      virtual QString menuPath(QAction *action) const;
+  //! Perform Action
+  virtual QList<QAction *> actions() const;
+  virtual QUndoCommand *performAction(QAction *action, GLWidget *widget);
+  virtual QString menuPath(QAction *action) const;
 
-      void setMolecule(Molecule *molecule);
+  void setMolecule(Molecule *molecule);
 
-    private:
-      QList<QAction *> m_actions;
-      Molecule *m_molecule;
+private:
+  QList<QAction *> m_actions;
+  Molecule *m_molecule;
 
-      void saveBondLength(GLWidget *widget);
+  void saveBondLength(GLWidget *widget);
 
-    protected:
-      QString m_savePath;
-  };
+protected:
+  QString m_savePath;
+};
 
-  class SelectionConsecutiveDistanceExtensionFactory : public QObject, public PluginFactory
-  {
-      Q_OBJECT
-      Q_INTERFACES(Avogadro::PluginFactory)
-      AVOGADRO_EXTENSION_FACTORY(SelectionConsecutiveDistanceExtension)
-  };
-
+class SelectionConsecutiveDistanceExtensionFactory : public QObject,
+                                                     public PluginFactory {
+  Q_OBJECT
+  Q_INTERFACES(Avogadro::PluginFactory)
+  AVOGADRO_EXTENSION_FACTORY(SelectionConsecutiveDistanceExtension)
+};
 
 } // end namespace Avogadro
 
